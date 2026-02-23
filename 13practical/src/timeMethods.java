@@ -1,9 +1,32 @@
 // Code is stored as 13template.java
-import java.lang.Math.*;   import java.io.*;   import java.text.*;
+import java.lang.Math.*;   
+import java.io.*;   
+import java.text.*;
+import java.util.Random;
 
 public class timeMethods{
-public static int N = ....;
+   public static final int N = 32654;   //total dataset
+    public static final int reps = 30;  //repatitions done
 public static void main(String args[]){
+   int[] target = new int[N];
+        for (int j = 0; j < N; j++) {
+            target[j] = j + 1;   
+        }
+
+        Random rand = new Random();
+        double linearTotal = 0;
+        double linearTotalSquared = 0;
+        double binaryTotal = 0;
+        double binaryTotalSquared = 0;
+        for (int i=0;i<reps;i++){
+
+        }
+
+
+
+
+
+
 
 DecimalFormat twoD = new DecimalFormat("0.00");
 DecimalFormat fourD = new DecimalFormat("0.0000");
@@ -53,6 +76,6 @@ int repetition, repetitions = 30;
 static void oneofyourMethods(int n, 
                        yourMethodParameter1,
                        yourMethodParameter2, . . . ) {
-// The declarations and body of your method / s   
+// The declarations and body of your method / s  
 // The final statement of this code.
 } 
