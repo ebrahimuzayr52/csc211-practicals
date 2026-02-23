@@ -5,8 +5,8 @@ import java.text.*;
 import java.util.Random;
 
 public class timeMethods{
-   public static final int N = 32654;   //total dataset
-    public static final int reps = 30;  //repatitions done
+   public static final int N = 32655;   //total dataset
+    public static final int reps = 30;  //repetitions done
 public static void main(String args[]){
    int[] target = new int[N];
         for (int j = 0; j < N; j++) {
@@ -14,19 +14,41 @@ public static void main(String args[]){
         }
 
         Random rand = new Random();
-        double linearTotal = 0;
-        double linearTotalSquared = 0;
-        double binaryTotal = 0;
-        double binaryTotalSquared = 0;
-        for (int i=0;i<reps;i++){
+        double linear = 0;
+        double linear_total_squared = 0;
+        double b_total = 0;
+        double b_total_squared = 0;
 
+        for (int i=0;i<reps;i++){
+            int key = 1 + rand.nextInt(N);
+            long start = System.nanoTime();
+            linearSearch(target, key);
+            long finish = System.nanoTime();
+            long linearTime = finish - start;
+
+            linear += linearTime;
+            linear_total_squared += (double) linearTime * linearTime;
+
+            
+            start = System.nanoTime();
+            binarySearch(target, key);
+            finish = System.nanoTime();
+            long binaryTime = finish - start;
+
+            b_total += binaryTime;
+            b_total_squared += (double) binaryTime * binaryTime;
         }
 
+        
+         double linearAverage = linear / reps;
+        double linearStdDev =
+                Math.sqrt((linear_total_squared - reps * linearAverage * linearAverage)
+                        / (reps - 1));
 
-
-
-
-
+        double binaryAverage = b_total / reps;
+        double binaryStdDev =
+                Math.sqrt((b_total_squared - reps * binaryAverage * binaryAverage)
+                        / (reps - 1));
 
 DecimalFormat twoD = new DecimalFormat("0.00");
 DecimalFormat fourD = new DecimalFormat("0.0000");
