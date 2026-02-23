@@ -4,7 +4,7 @@ import java.io.*;
 import java.text.*;
 import java.util.Random;
 
-public class timeMethods{
+public class test{
    public static final int N = 32655;   //total dataset
     public static final int reps = 30;  //repetitions done
 public static void main(String args[]){
@@ -22,7 +22,7 @@ public static void main(String args[]){
         for (int i=0;i<reps;i++){
             int key = 1 + rand.nextInt(N);
             long start = System.nanoTime();
-            linearSearch(target, key);
+            linearsearch(target, key);
             long finish = System.nanoTime();
             long linearTime = finish - start;
 
@@ -31,7 +31,7 @@ public static void main(String args[]){
 
             
             start = System.nanoTime();
-            binarySearch(target, key);
+            binarysearch(target, key);
             finish = System.nanoTime();
             long binaryTime = finish - start;
 
@@ -64,10 +64,10 @@ int repetition, repetitions = 30;
    for(repetition = 0; repetition < repetitions; repetition++) {
       start = System.currentTimeMillis();
 		
-      // call the procedures to time here:
-      linearsearch (...);
-      binarysearch (...);
-      // Figure out how to alter this guideline here,
+     
+      linearsearch(target, 1 + rand.nextInt(N));
+      binarysearch(target, 1 + rand.nextInt(N));
+      
 		
       finish = System.currentTimeMillis();
 			
@@ -93,11 +93,32 @@ int repetition, repetitions = 30;
    System.out.println("Repetitions  =             " + repetitions);
    System.out.println("________________________________________________");
    System.out.println();
-   System.out.println(); }	} 
+   System.out.println(); }	
 
-static void oneofyourMethods(int n, 
-                       yourMethodParameter1,
-                       yourMethodParameter2, . . . ) {
-// The declarations and body of your method / s  
-// The final statement of this code.
-} 
+public static int linearsearch(int[]target, int key){
+   for (int i=0; i<target.length; i++){
+      if (target[i] == key){
+         return i;
+      }
+   }
+   return -1;
+}
+
+public static int binarysearch(int[]target, int key){
+   int left = 0;
+   int right = target.length - 1;
+
+   while (left <= right) {
+      int mid = left + (right - left)/2;
+
+      if (target[mid] == key) {
+         return mid;
+      } else if (target[mid] < key) {
+         left = mid + 1;
+      } else {
+         right = mid - 1;
+      }
+   }
+   return -1;
+
+}}
