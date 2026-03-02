@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Main {
+public class Gen_H_Shuffel{
 
     static final int N = 1 << 20;  
     static final int REPETITIONS = 30;
@@ -36,12 +36,12 @@ public class Main {
             double chainTime = 0;
             for (int r = 0; r < REPETITIONS; r++) {
 
-                OpenHash open = new OpenHash(m);
+                OpenedHash open = new OpenedHash(m);
                 ChainedHash chain = new ChainedHash(m);
 
                 for (int i = 0; i < used; i++) {
                     open.insert(keys[i], values[i]);
-                    chain.insert(keys[i], values[i]);
+                    chain.insert(keys[i], values[i]); 
                 }
 
                 long start = System.currentTimeMillis();
