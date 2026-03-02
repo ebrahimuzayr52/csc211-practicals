@@ -33,4 +33,30 @@ public class OpenedHash {
         keys[i] = key;
         values[i] = value;
     }
+    public String lookup(String key) {
+        int i = hash(key);
+
+        while (keys[i] != null) {
+            if (keys[i].equals(key))
+                return values[i];
+
+            i = (i % m) + 1;
+        }
+        return null;
+    }
+     public String remove(String key) {
+        int i = hash(key);
+
+        while (keys[i] != null) {
+            if (keys[i].equals(key)) {
+                String val = values[i];
+                keys[i] = null;
+                values[i] = null;
+                size--;
+                return val;
+            }
+            i = (i % m) + 1;
+        }
+        return null;
 }  
+}
