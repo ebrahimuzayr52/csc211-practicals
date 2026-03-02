@@ -25,7 +25,7 @@ public class Gen_H_Shuffel{
 
         int[] loadPercent = {75, 80, 85, 90, 95};
 
-        System.out.println("Load% | OpenHash(sec) | ChainedHash(sec)");
+        System.out.println("Load % | OpenHash(sec) | ChainedHash(sec)");
 
         for (int percent : loadPercent) {
 
