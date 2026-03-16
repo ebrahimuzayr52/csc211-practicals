@@ -2,8 +2,8 @@ import java.io.*;
 import java.util.*;
 
 
-public class heapsort {
-    static void shift_Down(String[] arr, int i, int size) {
+public class heapsort { // start heapsort
+    static void shift_Down(String[] arr, int i, int size) {  //used sift down
         while(true){
             int left = 2*i+1;
             int right= 2*i+2;
@@ -25,7 +25,7 @@ public class heapsort {
             i = parent_small;
         }
     }
-    static void shift_up(String[] arr, int i, int size){
+    static void shift_up(String[] arr, int i, int size){ 
         while(i>0){
             int parent= (i-1)/2;
             if(arr[i].compareTo(arr[parent])<0){
