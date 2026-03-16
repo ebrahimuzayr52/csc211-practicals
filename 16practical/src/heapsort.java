@@ -25,7 +25,7 @@ public class heapsort { // start heapsort
             i = parent_small;
         }
     }
-    static void shift_up(String[] arr, int i, int size){ 
+    static void shift_up(String[] arr, int i, int size){  // sift up build
         while(i>0){
             int parent= (i-1)/2;
             if(arr[i].compareTo(arr[parent])<0){
@@ -69,7 +69,7 @@ public class heapsort { // start heapsort
         }
         return sorted;
     }
-     static String[] Reader(String filename) throws IOException {
+     static String[] Reader(String filename) throws IOException { // started a reader
         Set<String> words = new LinkedHashSet<>();
         BufferedReader lr = new BufferedReader(new FileReader(filename));
         String line;
@@ -91,7 +91,7 @@ public class heapsort { // start heapsort
         String[] words = Reader(filename);
         System.out.printf("Words loaded: %,d%n%n", words.length);
 
-        final int REPS = 5;
+        final int REPS = 5; // no.of repetitions
         long totalBuildBU = 0, totalSortBU = 0;
         String[] sortedBU = null;
 
@@ -128,7 +128,7 @@ public class heapsort { // start heapsort
         long avgBuildTD = totalBuildTD / REPS;
         long avgSortTD  = totalSortTD  / REPS;
 
-        System.out.println("HEAP SORT TIMING RESULTS");
+        System.out.println("HEAP SORT TIMING RESULTS"); //printing all results 
         System.out.println("Words sorted : " + words.length);
         System.out.println("Repetitions  : " + REPS);
         System.out.println("             Bottom-Up    Top-Down");
