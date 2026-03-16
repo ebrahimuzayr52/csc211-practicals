@@ -5,9 +5,9 @@ import java.util.*;
 public class heapsort {
     static void shift_Down(String[] arr, int i, int size) {
         while(true){
-            int left = 2*i+2;
-            int right= 2*i+1;
-            int parent_small= i+1;
+            int left = 2*i+1;
+            int right= 2*i+2;
+            int parent_small= i;
 
             if(left<size && arr[left].compareTo(arr[parent_small])<0){
                 parent_small=left;
@@ -49,7 +49,7 @@ public class heapsort {
     }
     static void Top_Down(String[] arr, int size) {
         for(int i=1; i< size;i++ ){
-            shift_up(arr,i);
+            shift_up(arr,i,size);
         }
     }
     static String[] heapSort(String[] arr, int size) {
@@ -69,28 +69,26 @@ public class heapsort {
         }
         return sorted;
     }
-     static String[] Reader(String path) throws IOException {
+     static String[] Reader(String filename) throws IOException {
         Set<String> words = new LinkedHashSet<>();
-        BufferedReader br = new BufferedReader(new FileReader(path));
+        BufferedReader lr = new BufferedReader(new FileReader(filename));
         String line;
-        while ((line = br.readLine()) != null) {
+        while ((line = lr.readLine()) != null) {
             
             String cleaned = line.replaceAll("[^a-zA-Z ]", " ").toLowerCase();
             for (String z : cleaned.split("\\s+")) {
                 if (!z.isEmpty()) words.add(z);
             }
         }
-        br.close();
         return words.toArray(new String[0]);
     }
     static String ms(long nanos) {
         return String.format("%.3f ms", nanos / 1_000_000.0);
     
     }
-    public static void main(String[] args){
-        String filePath = (args.length > 0) ? args[0] : "ullysses.txt";
-        System.out.println("LOADING WORDS FROM "+ filePath);
-        String[] words = Reader(filePath);
+    public static void main(String[] args)throws IOException{
+        String filename = (args.length > 0) ? args[0] : "ullysses.txt";
+        String[] words = Reader(filename);
         System.out.printf("Words loaded: %,d%n%n", words.length);
 
         final int REPS = 5;
@@ -129,31 +127,31 @@ public class heapsort {
         }
         long avgBuildTD = totalBuildTD / REPS;
         long avgSortTD  = totalSortTD  / REPS;
-        
-    }
+
+        System.out.println("HEAP SORT TIMING RESULTS");
+        System.out.println("Words sorted : " + words.length);
+        System.out.println("Repetitions  : " + REPS);
+        System.out.println("             Bottom-Up    Top-Down");
+        System.out.println("Build heap   " + ms(avgBuildBU) + "  " + ms(avgBuildTD));
+        System.out.println("Heap sort    " + ms(avgSortBU)  + "  " + ms(avgSortTD));
+        System.out.println("Total        " + ms(avgBuildBU + avgSortBU) + "  " + ms(avgBuildTD + avgSortTD));
 
 
-
-
-
-
-        
-
-
-
-
-
-        
-
-
-
-
-
-
+        int len = sortedBU.length;
+        System.out.println("\nFirst 5 words (BU sorted) : "
+            + Arrays.toString(Arrays.copyOfRange(sortedBU, 0, 5)));
+        System.out.println("Last  5 words (BU sorted) : "
+            + Arrays.toString(Arrays.copyOfRange(sortedBU, len - 5, len)));
+        System.out.println("\nFirst 5 words (TD sorted) : "
+            + Arrays.toString(Arrays.copyOfRange(sortedTD, 0, 5)));
+        System.out.println("Last  5 words (TD sorted) : "
+            + Arrays.toString(Arrays.copyOfRange(sortedTD, len - 5, len)));
+        System.out.println("\nBoth sorts produce identical output: "
+            + Arrays.equals(sortedBU, sortedTD));
 
     }
 }
-}
+
 
 
 
