@@ -137,7 +137,7 @@ public class heapsort { // start heapsort
         System.out.println("Total        " + ms(avgBuildBU + avgSortBU) + "  " + ms(avgBuildTD + avgSortTD));
 
 
-        int len = sortedBU.length;
+        int len = sortedBU.length;  //print statmenmts to view said sorted data
         System.out.println("\nFirst 5 words (BU sorted) : "
             + Arrays.toString(Arrays.copyOfRange(sortedBU, 0, 5)));
         System.out.println("Last  5 words (BU sorted) : "
