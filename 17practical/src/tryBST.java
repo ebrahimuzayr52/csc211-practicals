@@ -47,6 +47,46 @@ class BST{
         while (node.left != null) node = node.left;
         return node;
     }
+    public void clear() {
+    root = null;
+}
+    public int size() { return sizeRec(root); }
+    private int sizeRec(tNode node) {
+        if (node == null) return 0;
+        return 1 + sizeRec(node.left) + sizeRec(node.right);
+}
+
+    public int height() { return heightRec(root); }
+    private int heightRec(tNode node) {
+        if (node == null) return 0;
+        return 1 + Math.max(heightRec(node.left), heightRec(node.right));
+}
+    public boolean isBST() { return isBSTRec(root, Integer.MIN_VALUE, Integer.MAX_VALUE); }
+    private boolean isBSTRec(tNode node, int min, int max) {
+        if (node == null) return true;
+        if (node.key <= min || node.key >= max) return false;
+        return isBSTRec(node.left, min, node.key) && isBSTRec(node.right, node.key, max);
+}
+    public void inOrder() { inOrderRec(root); System.out.println(); }
+    private void inOrderRec(tNode node) {
+        if (node == null) return;
+        inOrderRec(node.left);
+        System.out.print(node.key + " ");
+        inOrderRec(node.right);
+    }
+    public void breadthFirst() {
+        if (root == null) return;
+        Queue<tNode> q = new LinkedList<>();
+        q.add(root);
+            while (!q.isEmpty()) {
+            tNode cur = q.poll();
+            System.out.print(cur.key + " ");
+            if (cur.left != null) q.add(cur.left);
+            if (cur.right != null) q.add(cur.right);
+    }
+        System.out.println();
+}
+
     private tNode deleteRec(tNode node, int key) {
         if (node == null) return null;
         if (key < node.key) node.left = deleteRec(node.left, key);
@@ -63,7 +103,7 @@ class BST{
 }
 
 public class tryBST {
-    static final int N = 20;
+    static final int N = 24;
     static final int REPS = 30;
 
     static void populateBST(BST tree, int low, int high) {
@@ -74,7 +114,7 @@ public class tryBST {
         populateBST(tree, mid + 1, high);
     }
 
-    static double timepopulate(BST tree, int maxKey) {
+    static double time_populate(BST tree, int maxKey) {
         tree.clear();
         long start = System.nanoTime();
         populateBST(tree, 1, maxKey);
@@ -100,9 +140,35 @@ public class tryBST {
         for (double v : data) sumSq += (v - avg) * (v - avg);
         return Math.sqrt(sumSq / data.length);
     }
-}
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
+        int maxKey = (1 << N) - 1;
 
-       
+        System.out.println("Testing with small tree first (keys 1..15)");
+        BST small = new BST();
+        populateBST(small, 1, 15);
+        System.out.println();
+        System.out.println("Running timing with n=" + N + " maxKey=" + maxKey);
+
+        BST tree = new BST();
+        double[] popTimes = new double[REPS];
+        double[] remTimes = new double[REPS];
+
+        for (int i = 0; i < REPS; i++) {
+            popTimes[i] = time_populate(tree, maxKey);
+            remTimes[i] = timeRemoveEvens(tree);
+        }
+
+        double popMean = mean(popTimes);
+        double popSD = stddev(popTimes, popMean);
+        double remMean = mean(remTimes);
+        double remSD = stddev(remTimes, remMean);
+
+        System.out.println();
+        System.out.printf("%-30s %15s %15s%n", "Method", "Avg time (ms)", "Std Deviation");
+        System.out.println("");
+        System.out.printf("%-30s %15.2f %15.2f%n", "Populate tree", popMean, popSD);
+        System.out.printf("%-30s %15.2f %15.2f%n", "Remove evens from tree", remMean, remSD);
+
     }
+}

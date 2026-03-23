@@ -79,13 +79,17 @@ public class heapsort { // start heapsort
             for (String z : cleaned.split("\\s+")) {
                 if (!z.isEmpty()) words.add(z);
             }
+            lr.close();
         }
         return words.toArray(new String[0]);
+        
     }
+
     static String ms(long nanos) {
         return String.format("%.3f ms", nanos / 1_000_000.0);
     
     }
+    
     public static void main(String[] args)throws IOException{
         String filename = (args.length > 0) ? args[0] : "ullysses.txt";
         String[] words = Reader(filename);
@@ -124,7 +128,9 @@ public class heapsort { // start heapsort
 
             totalBuildTD += (t1 - t0);
             totalSortTD  += (t2 - t1);
+           
         }
+    
         long avgBuildTD = totalBuildTD / REPS;
         long avgSortTD  = totalSortTD  / REPS;
 
@@ -148,8 +154,10 @@ public class heapsort { // start heapsort
             + Arrays.toString(Arrays.copyOfRange(sortedTD, len - 5, len)));
         System.out.println("\nBoth sorts produce identical output: "
             + Arrays.equals(sortedBU, sortedTD));
+            
 
     }
+    
 }
 
 
